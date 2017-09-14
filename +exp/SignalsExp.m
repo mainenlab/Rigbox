@@ -136,6 +136,7 @@ classdef SignalsExp < handle
       obj.Events.expStart = net.origin('expStart');
       obj.Events.newTrial = net.origin('newTrial');
       obj.Events.expStop = net.origin('expStop');
+      obj.Events.keyboard = net.origin('keyboard');
       obj.Inputs.wheel = net.origin('wheel');
       % get global parameters & conditional parameters structs
       [~, globalStruct, allCondStruct] = toConditionServer(...
@@ -551,6 +552,8 @@ classdef SignalsExp < handle
       outlist = mapToCell(@(n,v)queuefun(['outputs.' n],v),...
           fieldnames(obj.Outputs), struct2cell(obj.Outputs));
       obj.Listeners = vertcat(obj.Listeners, evtlist(:), outlist(:));
+      post(obj.Events.keyboard, '') % initialize keyboard signal
+      runSchedule(obj.Net)
     end
     
     function cleanup(obj)
@@ -619,7 +622,6 @@ classdef SignalsExp < handle
       %set looping flag
       obj.IsLooping = true;
       % begin the loop
-      nChars = 0;
       while obj.IsLooping
         %% create a list of handlers that have become due
         dueIdx = find([obj.Pending.dueTime] <= now(obj.Clock));
@@ -708,6 +710,11 @@ classdef SignalsExp < handle
             resume(obj);
           else
             pause(obj);
+          end
+        else
+          key = KbName(keysPressed);
+          if ~isempty(key)
+            post(obj.Events.keyboard, key(1));
           end
         end
       end
