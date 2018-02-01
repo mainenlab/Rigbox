@@ -340,9 +340,27 @@ classdef AlyxPanel < handle
               if s.water_requirement_total==0
                   set(obj.WaterRequiredText, 'String', sprintf('Subject %s not on water restriction', obj.Subject));
               else
+                  w = [s.weighings{:}];
+                  weighingsToday = find(cellfun(@(d) floor(alyx.datenum(d)),{w.date_time}) == floor(now),1,'last');
+                  if ~isempty(weighingsToday)
+                      weight_today = s.weighings{weighingsToday}.weight;
+                  else
+                      weight_today = NaN;
+                  end
+                  
+                  w = [s.water_administrations{:}];
+                  waterToday = find(cellfun(@(d) floor(alyx.datenum(d)),{w.date_time}) == floor(now));
+                  if ~isempty(waterToday)
+                      wat = s.water_administrations(waterToday); wat = [wat{:}];
+                      water_total_today = sum([wat.water_administered]);
+                  else
+                      water_total_today = 0;
+                  end
+                  
                   set(obj.WaterRequiredText, 'String', ...
-                      sprintf('Subject %s requires %.2f of %.2f today', ...
-                      obj.Subject, s.water_requirement_remaining, s.water_requirement_total));
+                      sprintf('Subject %s requires %.2f of %.2f today\n\t   Weight today: %.2f    Water today: %.2f', ...
+                      obj.Subject, s.water_requirement_remaining, s.water_requirement_total,...
+                      weight_today,water_total_today) );
                   obj.WaterRemaining = s.water_requirement_remaining;
               end
             catch me
