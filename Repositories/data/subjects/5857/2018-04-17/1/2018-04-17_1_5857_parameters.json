@@ -1,0 +1,10 @@
+{
+	"parameters": {
+		"numRepeats": 1000,
+		"defFunction": "\\\\DESKTOP-S0OQQSD\\Repositories\\code\\Rigging\\ExpDefinitions\\foragingChoiceworld.m",
+		"type": "custom",
+		"expPanelFun": "foragingChoiceworldExpPanel",
+		"services": [],
+		"servicesDescription": "List of experiment services to use during the experiment"
+	}
+}

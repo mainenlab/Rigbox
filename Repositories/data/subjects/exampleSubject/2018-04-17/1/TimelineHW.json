@@ -1,0 +1,38 @@
+{
+	"hw": {
+		"daqVendor": "ni",
+		"daqDevice": "Dev1",
+		"daqSampleRate": 1000,
+		"daqSamplesPerNotify": 1000,
+		"chronoOutDaqChannelID": "port1\/line0",
+		"acqLiveOutDaqChannelID": null,
+		"useClockOutput": 0,
+		"clockOutputFrequency": null,
+		"clockOutputDutyCycle": null,
+		"samplingInterval": 0.001,
+		"inputs": {
+			"name": "chrono",
+			"arrayColumn": 1,
+			"daqChannelID": "ai0",
+			"measurement": "Voltage",
+			"terminalConfig": "SingleEnded",
+			"axesScale": 1
+		},
+		"arrayChronoColumn": 1,
+		"Outputs": [
+			{
+				"DaqDeviceID": "Dev1",
+				"DaqChannelID": "port1\/line0",
+				"DaqVendor": "ni",
+				"NextChronoSign": 1,
+				"CurrSysTimeTimelineOffset": 371673.9982,
+				"LastClockSentSysTime": 372339.0006,
+				"Name": "Chrono",
+				"Enable": 1,
+				"Verbose": 0,
+				"Session": null,
+				"Class": "hw.TLOutputChrono"
+			}
+		]
+	}
+}

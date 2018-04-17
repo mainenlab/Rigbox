@@ -37,15 +37,15 @@ alphaBiasTracker = 0.05;
 %slopeSigmoidBias = 0.25; %min/max is 0/1 for bias sigmoid, midpoint = 0.5
 
 % Trial choice parameters
-rewardProb = 1;
+rewardProb = 0.9;
 % flipRate = 0.1; %Ines changed
 flipRate = 0.25;
 
 
 % Stimulus/target
 % (which contrasts to use)
-% contrasts = [1,0.5,0.25,0.125,0.06,0];
-contrasts = [1,0.5];
+contrasts = [1,0.5,0.25,0.125,0.06,0];
+% contrasts = [1,0.5];
 sigma = [20,20];
 spatialFreq = 1/15;
 startingAzimuth = 90;
@@ -83,7 +83,7 @@ missNoiseSamples = missNoiseAmplitude*events.expStart.map(@(x) ...
 quiescThreshold = 1;
 encoderRes = 1024; % Resolution of the rotary encoder
 millimetersFactor = events.newTrial.map2(31*2*pi/(encoderRes*4), @times); % convert the wheel gain to a value in mm/deg
-wheelGain = 5;
+wheelGain = 15;
 
 %% Initialize trial data
 
@@ -357,12 +357,13 @@ trialData.trialContrast = randsample(trialData.contrasts,1);
 
 %%%% Define response type based on trial condition
 r = rand;
-trialData.hit = stimDisplacement*trialData.trialSide < 0 && r <= trialData.rewardProb; %correct side and reward
+isCorrectChoice = stimDisplacement*trialData.trialSide < 0;
+trialData.hit = isCorrectChoice && r <= trialData.rewardProb; %correct side and reward
 trialData.miss = stimDisplacement*trialData.trialSide > 0 || ... %wrong side
     (stimDisplacement*trialData.trialSide < 0 && r > trialData.rewardProb); %correct side and no reward
 
 %update flipRate
-trialData.performanceTracker = trialData.alphaPerformanceTracker*trialData.hit ...
+trialData.performanceTracker = trialData.alphaPerformanceTracker*isCorrectChoice ...
     + (1-trialData.alphaPerformanceTracker)*trialData.performanceTracker;
 trialData.sigmoidParamsFlip
 % deltaFlipRate = trialData.sigmoidParamsFlip(4) ...
