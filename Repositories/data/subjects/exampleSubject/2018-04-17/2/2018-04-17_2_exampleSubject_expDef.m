@@ -197,7 +197,6 @@ events.trialContrast = trialData.trialContrast;
 events.trialSide = trialData.trialSide;
 events.repeatTrial = trialData.repeatTrial;
 events.hit = trialData.hit.at(response);
-events.isRewarded = trialData.isRewarded.at(response);
 events.totalWater = water.scan(@plus, 0).map(fun.partial(@sprintf, '%.1fµl'));
 
 events.flipRate = trialData.flipRate;
