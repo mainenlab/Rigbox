@@ -82,10 +82,12 @@ azimuth = cond(...
 %% define the visual stimulus
 
 % Test stim left
-leftStimulus = vis.grating(t, 'sinusoid', 'gaussian'); % create a Gabor grating
+% leftStimulus = vis.grating(t, 'sinusoid', 'gaussian'); % create a Gabor grating
+leftStimulus = vis.grating(t, 'square', 'gaussian'); % create a Gabor grating
 leftStimulus.orientation = p.stimulusOrientation;
 leftStimulus.altitude = 0;
-leftStimulus.sigma = [9,9]; % in visual degrees
+% leftStimulus.sigma = [9,9]; % in visual degrees
+leftStimulus.sigma = [20,20]; % in visual degrees
 leftStimulus.spatialFreq = p.spatialFrequency; % in cylces per degree
 leftStimulus.phase = 2*pi*evts.newTrial.map(@(v)rand);   % phase randomly changes each trial
 leftStimulus.contrast = contrastLeft;
@@ -96,10 +98,12 @@ leftStimulus.show = stimulusOn.to(stimulusOff);
 vs.leftStimulus = leftStimulus; % store stimulus in visual stimuli set and log as 'leftStimulus'
 
 % Test stim right
-rightStimulus = vis.grating(t, 'sinusoid', 'gaussian');
+% rightStimulus = vis.grating(t, 'sinusoid', 'gaussian');
+rightStimulus = vis.grating(t, 'square', 'gaussian');
 rightStimulus.orientation = p.stimulusOrientation;
 rightStimulus.altitude = 0;
-rightStimulus.sigma = [9,9];
+% rightStimulus.sigma = [9,9];
+rightStimulus.sigma = [20,20];
 rightStimulus.spatialFreq = p.spatialFrequency;
 rightStimulus.phase = 2*pi*evts.newTrial.map(@(v)rand);
 rightStimulus.contrast = contrastRight;
