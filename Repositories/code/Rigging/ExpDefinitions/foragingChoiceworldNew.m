@@ -4,6 +4,7 @@ function foragingChoiceworldNew(t, events, parameters, visStim, inputs, outputs,
 % 2018-01 - MW updated: automatic reward reduction, L-R performance
 % 2018-02 - MM updated: flipping to 2AFC blending
 % 2018-04 - ED updated: change target to world coords, seperate de-bias from task mix
+% 2018-04 - ED major changes: convert the experiment to theory-mapped, 'VR' like
 %
 % Choice world that adapts with behavior
 %
@@ -39,7 +40,7 @@ function foragingChoiceworldNew(t, events, parameters, visStim, inputs, outputs,
     %% Trial meta parameters
     
     % TODO: these all need to be set in defaultSessionParams
-
+	% TODO: these all can be changed to within trialData
     %sigmoid parameter from (performanceTracer-targetPerformance) -> deltaFlipRate
     sigmoidParamsFlip = [0.7, 0.25, 0.01, -0.01]; %targetPerformance, slope, max, min
     performanceTracker = sigmoidParamsFlip(1); %variable to track performance
